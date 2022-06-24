@@ -1,0 +1,84 @@
+﻿<Window x:Class="WpfApp8.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:WpfApp8.Views"
+        xmlns:viewmodel="clr-namespace:WpfApp8.ViewModels" xmlns:interacitivy="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:interacitivy1="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainView" Height="550" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone
+        Mode="Standard"
+        Padding="8 4 8 4"
+        CornerRadius="5"
+        Panel.ZIndex="1"
+        Margin="10 10 10 0"
+        materialDesign:ShadowAssist.ShadowDepth="Depth3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+              Width="Auto" />
+                    <ColumnDefinition
+              Width="*" />
+                    <ColumnDefinition
+              Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Text="{Binding Txt_search, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Grid.Column="1"
+                    Margin="8 0 0 0"
+                    materialDesign:HintAssist.Hint="Search"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="0"
+                    MinWidth="200"
+                    VerticalAlignment="Center">
+                    <interacitivy1:Interaction.Triggers>
+                        <interacitivy1:EventTrigger EventName="TextChanged">
+                            <interacitivy1:InvokeCommandAction Command="{Binding TextchangedCommand}"></interacitivy1:InvokeCommandAction>
+                        </interacitivy1:EventTrigger>
+                    </interacitivy1:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+        </materialDesign:ColorZone>
+        <DataGrid Grid.Row="1" SelectedItem="{Binding Slcprocess, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="lst" ItemsSource="{Binding processes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="60" Header="Id" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Width="150" Header="Name" Binding="{Binding ProcessName ,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Width="150" Header="MachineName" Binding="{Binding MachineName,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Width="150" Header="Handle Count" Binding="{Binding HandleCount,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Width="150" Header="Theard Count" Binding="{Binding Threads.Count,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:ColorZone
+                Mode="Standard"
+                Margin="10,10,20,10"
+                CornerRadius="5"
+                Panel.ZIndex="1"        
+                materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox
+                        Text="{Binding Txt_start, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Height="40"
+                        Width="60"                                               
+                        materialDesign:HintAssist.Hint="Process Name"                        
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"
+                        MinWidth="200"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />                    
+                </Grid>
+            </materialDesign:ColorZone>
+            <Button Margin="10,10,20,10" Command="{Binding StartCommand}" Height="40" Width="200" >Start Task</Button>
+            <Button Margin="10,10,20,10" Command="{Binding EndCommand}" Height="40" Width="200" >End Task</Button>
+        </StackPanel>
+    </Grid>
+</Window>
